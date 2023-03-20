@@ -1,22 +1,19 @@
-// UC 5 Display Employee Details from JSON Object
+// UC 5 Display Employee Details from JSON Object including the Department
 window.addEventListener("DOMContentLoaded", (event) => {
     createInnerHtml();
 });
 
-//Template literal ES6 feature
+
 const createInnerHtml = () =>{
-    const headerHtml ="<tr><th></th><th>Name</th><th>Gender</th><th>Department</th><th>Salary</th>" +
-    "<th>Start Date</th><th>Actions</th></tr>";
+    const headerHtml ="<th></th><th>Name</th><th>Gender</th><th>Department</th><th>Salary</th>" +
+    "<th>Start Date</th><th>Actions</th>";
     let employeePayrollData = createEmployeePayrollJSON()[0];
     const innerHtml =  `${headerHtml}
     <tr>
         <td><img class="profile" src="${employeePayrollData._profilePic}" alt=""></td>
         <td>${employeePayrollData._name}</td>
         <td>${employeePayrollData._gender}</td>
-        <td>
-            <div class="dept-label">${employeePayrollData._department[0]}</div>
-            <div class="dept-label">${employeePayrollData._department[1]}</div>
-        </td>
+        <td>${getDeptHtml( employeePayrollData._department)}</td>
         <td>${employeePayrollData._salary}</td>
         <td>${employeePayrollData._startDate}</td>
         <td>
@@ -27,6 +24,7 @@ const createInnerHtml = () =>{
     `;
     document.querySelector('#table-display').innerHTML = innerHtml;
 }
+
 const createEmployeePayrollJSON = () => {
     let empPayrollListLocal = [
         {
@@ -59,3 +57,10 @@ const createEmployeePayrollJSON = () => {
     return empPayrollListLocal;
 }
 
+const getDeptHtml = (deptList) =>{
+    let deptHtml = '';
+    for(const dept of deptList){
+        deptHtml=`${deptHtml}<div class='dept-label'>${dept}</div>`
+    }
+    return deptHtml;
+}
